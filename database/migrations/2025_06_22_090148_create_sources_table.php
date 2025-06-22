@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('geographic_scope')->nullable();
             $table->string('main_topic')->nullable();
             $table->string('logo')->nullable();
-            $table->foreignId('municipality_id')->nullable()->constrained();
+            //$table->foreignId('municipality_id')->nullable()->constrained();
+            $table->unsignedBigInteger('municipality_id')->nullable();
+
             $table->timestamps();
         });
     }
