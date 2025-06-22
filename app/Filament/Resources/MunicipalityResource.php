@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProvinceResource\Pages;
-use App\Filament\Resources\ProvinceResource\RelationManagers;
-use App\Models\Province;
+use App\Filament\Resources\MunicipalityResource\Pages;
+use App\Filament\Resources\MunicipalityResource\RelationManagers;
+use App\Models\Municipality;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,17 +13,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ProvinceResource extends Resource
+class MunicipalityResource extends Resource
 {
-    protected static ?string $model = Province::class;
+    protected static ?string $model = Municipality::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map';
+        protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\TextInput::make('slug')->required(),
+            Forms\Components\Select::make('province_id')
+                ->relationship('province', 'name')
+                ->required(),
         ]);
     }
 
@@ -31,7 +34,7 @@ class ProvinceResource extends Resource
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('slug')->sortable(),
+            Tables\Columns\TextColumn::make('province.name')->label('Province')->sortable(),
         ]);
     }
 
@@ -45,9 +48,9 @@ class ProvinceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProvinces::route('/'),
-            'create' => Pages\CreateProvince::route('/create'),
-            'edit' => Pages\EditProvince::route('/{record}/edit'),
+            'index' => Pages\ListMunicipalities::route('/'),
+            'create' => Pages\CreateMunicipality::route('/create'),
+            'edit' => Pages\EditMunicipality::route('/{record}/edit'),
         ];
     }
 }
