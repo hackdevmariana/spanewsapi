@@ -18,6 +18,10 @@ class Source extends Model
         'logo',
         'municipality_id',
     ];
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
 
     public function articles()
     {
