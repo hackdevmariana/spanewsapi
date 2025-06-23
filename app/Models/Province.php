@@ -15,4 +15,8 @@ class Province extends Model
     {
         return $this->hasMany(Municipality::class);
     }
+    public function community()
+    {
+        return $this->belongsTo(AutonomousCommunity::class, 'autonomous_community_id');
+    }
 }
