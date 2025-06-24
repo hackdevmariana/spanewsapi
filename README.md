@@ -73,21 +73,19 @@ php artisan serve
 
 ## Roadmap
 
-[X] Base models & admin panel
+- [x] Base models & admin panel
+- [ ] Scraping engine / RSS parser
+- [ ] Public API endpoints
+- [ ] API authentication (API keys, rate limits)
+- [ ] Documentation site
 
-[ ] Scraping engine / RSS parser
-
-[ ] Public API endpoints
-
-[ ] API authentication (API keys, rate limits)
-
-[ ] Documentation site
 
 ## Contributing
 
-Pull requests are welcome! Please
+Pull requests are welcome! Please open an issue first to discuss any major changes or new features.
+
 
 ## License
 
-This project is open-sourced under the GPL license.
+This project is licensed under the GNU General Public License v3.0 (GPLv3).
 
