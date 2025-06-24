@@ -49,39 +49,39 @@ php artisan serve
 
 ## Usage
 
-    Access the admin panel at /admin
+- Access the admin panel at /admin
 
-    Use Filament to manage:
+- Use Filament to manage:
 
-        Media sources
+    - Media sources
 
-        Articles
+    - Articles
 
-        Tags
+    - Tags
 
-        Topics
+    - Topics
 
-        Municipalities / Provinces / Autonomous Communities
+    - Municipalities / Provinces / Autonomous Communities
 
-    API endpoints (coming soon) will allow:
+- API endpoints (coming soon) will allow:
 
-        Querying articles by location, tag, topic
+    - Querying articles by location, tag, topic
 
-        Filtering by media source
+    - Filtering by media source
 
-        Retrieving featured news
+    - Retrieving featured news
 
 ## Roadmap
 
-Base models & admin panel
+[X] Base models & admin panel
 
-Scraping engine / RSS parser
+[ ] Scraping engine / RSS parser
 
-Public API endpoints
+[ ] Public API endpoints
 
-API authentication (API keys, rate limits)
+[ ] API authentication (API keys, rate limits)
 
-    Documentation site
+[ ] Documentation site
 
 ## Contributing
 
