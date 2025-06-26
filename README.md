@@ -37,7 +37,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/spanewsapi.git
+git clone https://github.com/hackdevmariana/spanewsapi.git
 cd spanewsapi
 composer install
 cp .env.example .env
@@ -130,7 +130,7 @@ This project is licensed under the GNU General Public License v3.0 (GPLv3).
 ## Instalación
 
 ```bash
-git clone https://github.com/yourusername/spanewsapi.git
+git clone https://github.com/hackdevmariana/spanewsapi.git
 cd spanewsapi
 composer install
 cp .env.example .env
