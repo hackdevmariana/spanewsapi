@@ -7,36 +7,38 @@ use App\Models\Source;
 use App\Models\Article;
 use Kalimeromk\Rssfeed\Facades\RssFeed;
 
-class FetchFeeds extends Command
-{
+class FetchFeeds extends Command {
     protected $signature = 'feeds:fetch';
     protected $description = 'Importa feeds RSS a artículos';
 
-    public function handle()
-    {
+    public function handle() {
         $sources = Source::whereNotNull('rss_url')->get();
 
         foreach ($sources as $src) {
             try {
-                $feed = RssFeed::make($src->rss_url);
+                $feed = RssFeed::parseRssFeeds($src->rss_url);
             } catch (\Exception $e) {
                 $this->error("Error en {$src->rss_url}: {$e->getMessage()}");
                 continue;
             }
 
-            foreach ($feed->items() as $item) {
+            $items = $feed['items'] ?? [];
+            foreach ($items as $item) {
+                // Asegúrate de que es objeto o array con propiedades esperadas
+                $url = $item['link'] ?? $item['url'] ?? null;
                 Article::updateOrCreate(
-                    ['url' => $item->url],
+                    ['url' => $url],
                     [
                         'source_id'    => $src->id,
-                        'title'        => $item->title,
-                        'body'         => $item->content ?? $item->description,
-                        'published_at' => $item->pubDate,
+                        'title'        => $item['title'] ?? '',
+                        'body'         => $item['content'] ?? $item['description'] ?? '',
+                        'published_at' => $item['pubDate'] ?? now(),
                     ]
                 );
             }
 
-            $this->info("Importados " . count($feed->items()) . " artículos de {$src->name}");
+            $count = count($items);
+            $this->info("Importados {$count} artículos de {$src->name}");
         }
 
         return 0;
