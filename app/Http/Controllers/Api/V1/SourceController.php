@@ -24,7 +24,6 @@ class SourceController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Not found'], 404);
         }
-
         return new SourceResource($source);
     }
 }
