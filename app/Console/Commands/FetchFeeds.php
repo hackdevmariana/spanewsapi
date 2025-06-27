@@ -5,12 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Source;
 use App\Models\Article;
-use Feeds;
+use Kalimeromk\Rssfeed\Facades\RssFeed;
 
 class FetchFeeds extends Command
 {
     protected $signature = 'feeds:fetch';
-    protected $description = 'Descarga y guarda artículos desde los RSS de sources';
+    protected $description = 'Importa feeds RSS a artículos';
 
     public function handle()
     {
@@ -18,26 +18,25 @@ class FetchFeeds extends Command
 
         foreach ($sources as $src) {
             try {
-                $feed = Feeds::make($src->rss_url);
-
+                $feed = RssFeed::make($src->rss_url);
             } catch (\Exception $e) {
-                $this->error("Error al parsear {$src->rss_url}: {$e->getMessage()}");
+                $this->error("Error en {$src->rss_url}: {$e->getMessage()}");
                 continue;
             }
 
-            foreach ($feed->get_items() as $item) {
+            foreach ($feed->items() as $item) {
                 Article::updateOrCreate(
-                    ['url' => $item->get_link()],
+                    ['url' => $item->url],
                     [
                         'source_id'    => $src->id,
-                        'title'        => $item->get_title(),
-                        'body'         => $item->get_content() ?: $item->get_description(),
-                        'published_at' => $item->get_date('Y-m-d H:i:s'),
+                        'title'        => $item->title,
+                        'body'         => $item->content ?? $item->description,
+                        'published_at' => $item->pubDate,
                     ]
                 );
             }
 
-            $this->info("Importados: {$feed->get_item_quantity()} artículos de {$src->name}");
+            $this->info("Importados " . count($feed->items()) . " artículos de {$src->name}");
         }
 
         return 0;
