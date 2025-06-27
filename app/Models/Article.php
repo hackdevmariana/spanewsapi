@@ -35,4 +35,9 @@ class Article extends Model
     {
         return $this->hasOne(FeaturedArticle::class);
     }
+
+    public static function getFeedItems()
+    {
+        return self::latest()->limit(10)->get();
+    }
 }
