@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,11 +18,14 @@ class SourceResource extends JsonResource
             'geographic_scope' => $this->geographic_scope,
             'main_topic' => $this->main_topic,
             'logo' => $this->logo,
-            'municipality' => [
-                'id' => $this->municipality->id,
-                'name' => $this->municipality->name,
-                'province_id' => $this->municipality->province_id,
-            ],
+            'municipality' => $this->whenLoaded('municipality', function () {
+                return [
+                    'id' => $this->municipality->id ?? null,
+                    'name' => $this->municipality->name ?? null,
+                    'province_id' => $this->municipality->province_id ?? null,
+                ];
+            }),
+
         ];
     }
 }
