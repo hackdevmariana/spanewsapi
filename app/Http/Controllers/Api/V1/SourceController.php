@@ -11,7 +11,7 @@ class SourceController extends Controller
 {
     public function index()
     {
-        $sources = Source::with('municipality')->get();
+        $sources = Source::with(['municipality', 'province.community'])->get();
         return SourceResource::collection($sources);
     }
 

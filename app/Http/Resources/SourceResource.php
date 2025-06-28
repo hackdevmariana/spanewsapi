@@ -19,7 +19,7 @@ class SourceResource extends JsonResource
             'main_topic'       => $this->main_topic,
             'logo'             => $this->logo,
 
-            // Rela­­ciones condicionales
+            // Relaciones condicionales
             'municipality' => $this->whenLoaded('municipality', function () {
                 return new MunicipalityResource($this->municipality);
             }),
@@ -28,8 +28,10 @@ class SourceResource extends JsonResource
                 return new ProvinceResource($this->province);
             }),
 
-            'community' => $this->whenLoaded('community', function () {
-                return new CommunityResource($this->community);
+            'community' => $this->whenLoaded('province', function () {
+                return $this->province && $this->province->community
+                    ? new CommunityResource($this->province->community)
+                    : null;
             }),
 
             'editorial_email'  => $this->editorial_email,
