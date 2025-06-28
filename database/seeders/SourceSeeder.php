@@ -5,11 +5,15 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Municipality;
+use App\Models\Province;
+use App\Models\AutonomousCommunity;
 use App\Models\Source;
 
-/* Usage:
 
-php artisan db:seed --class=SourceSeeder
+/* USAGE:
+
+    php artisan db:seed --class=SourceSeeder
+
 */
 
 class SourceSeeder extends Seeder
@@ -21,22 +25,26 @@ class SourceSeeder extends Seeder
     {
         $items = [
             [
-                'name' => 'Diario de Sevilla',
-                'slug' => 'diario-de-sevilla',
-                'url' => 'https://www.diariodesevilla.es/',
-                'rss_url' => 'https://www.diariodesevilla.es/feeds/',
-                'contact_email' => 'redaccion@diariodesevilla.es',
-                'type' => 'digital',
-                'geographic_scope' => 'provincial',
-                'main_topic' => 'actualidad',
-                'municipality_id' => Municipality::where('name', 'Sevilla')->value('id'),
+                'name'               => 'Diario de Sevilla',
+                'slug'               => 'diario-de-sevilla',
+                'url'                => 'https://www.diariodesevilla.es/',
+                'rss_url'            => 'https://www.diariodesevilla.es/feeds/',
+                'editorial_email'    => 'redaccion@diariodesevilla.es',
+                'commercial_email'   => 'publicidad@diariodesevilla.es',
+                'type'               => 'digital',
+                'geographic_scope'   => 'provincial',
+                'main_topic'         => 'actualidad',
+                'municipality_id'    => Municipality::where('name', 'Sevilla')->value('id'),
+                'province_id'        => Province::where('slug', 'sevilla')->value('id'),
+                'community_id'       => AutonomousCommunity::where('slug', 'andalucia')->value('id'),
             ],
-            // ... otros medios
+            // … más medios progresivamente
         ];
 
         foreach ($items as $data) {
+            $slug = $data['slug'];
             Source::updateOrCreate(
-                ['slug' => $data['slug']],
+                ['slug' => $slug],
                 $data
             );
         }
