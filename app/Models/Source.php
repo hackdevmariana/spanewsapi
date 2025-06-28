@@ -11,12 +11,15 @@ class Source extends Model
         'slug',
         'url',
         'rss_url',
-        'contact_email',
         'type',
         'geographic_scope',
         'main_topic',
         'logo',
+        'editorial_email',
+        'commercial_email',
         'municipality_id',
+        'province_id',
+        'community_id',
     ];
     public function topic()
     {
@@ -31,5 +34,14 @@ class Source extends Model
     public function municipality()
     {
         return $this->belongsTo(Municipality::class);
+    }
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function community()
+    {
+        return $this->belongsTo(AutonomousCommunity::class, 'community_id');
     }
 }
