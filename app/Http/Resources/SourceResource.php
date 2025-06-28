@@ -9,23 +9,31 @@ class SourceResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'url' => $this->url,
-            'rss_url' => $this->rss_url,
-            'type' => $this->type,
+            'id'               => $this->id,
+            'name'             => $this->name,
+            'slug'             => $this->slug,
+            'url'              => $this->url,
+            'rss_url'          => $this->rss_url,
+            'type'             => $this->type,
             'geographic_scope' => $this->geographic_scope,
-            'main_topic' => $this->main_topic,
-            'logo' => $this->logo,
+            'main_topic'       => $this->main_topic,
+            'logo'             => $this->logo,
+
+            // Rela­­ciones condicionales
             'municipality' => $this->whenLoaded('municipality', function () {
-                return [
-                    'id' => $this->municipality->id ?? null,
-                    'name' => $this->municipality->name ?? null,
-                    'province_id' => $this->municipality->province_id ?? null,
-                ];
+                return new MunicipalityResource($this->municipality);
             }),
 
+            'province' => $this->whenLoaded('province', function () {
+                return new ProvinceResource($this->province);
+            }),
+
+            'community' => $this->whenLoaded('community', function () {
+                return new CommunityResource($this->community);
+            }),
+
+            'editorial_email'  => $this->editorial_email,
+            'commercial_email' => $this->commercial_email,
         ];
     }
 }
