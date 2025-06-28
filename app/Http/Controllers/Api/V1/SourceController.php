@@ -17,13 +17,14 @@ class SourceController extends Controller
 
     public function show($slug)
     {
-        try {
-            $source = Source::with('municipality')
-                ->where('slug', $slug)
-                ->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => 'Not found'], 404);
+        $source = Source::with(['municipality', 'province.community'])
+            ->where('slug', $slug)
+            ->first();
+
+        if (! $source) {
+            return response()->json(['message' => 'Source not found'], 404);
         }
+
         return new SourceResource($source);
     }
 }
