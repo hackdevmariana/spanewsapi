@@ -10,7 +10,9 @@ class TagController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => Tag::select('name', 'slug')->get(),
+            'data' => Tag::select('name', 'slug')
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 }
