@@ -22,17 +22,26 @@ class ProvinceResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('name')->required(),
-            Forms\Components\TextInput::make('slug')->required(),
-        ]);
+        Forms\Components\TextInput::make('name')->required(),
+        Forms\Components\TextInput::make('slug')->required(),
+        Forms\Components\Select::make('autonomous_community_id') // 👈 Este es el campo relacional
+            ->label('Comunidad Autónoma')
+            ->relationship('community', 'name')
+            ->searchable()
+            ->required(),
+    ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table->columns([
-            Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('slug')->sortable(),
-        ]);
+        Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+        Tables\Columns\TextColumn::make('slug')->sortable(),
+        Tables\Columns\TextColumn::make('community.name') // 👈 Aquí muestras el nombre de la comunidad
+            ->label('Comunidad Autónoma')
+            ->sortable()
+            ->searchable(),
+    ]);
     }
 
     public static function getRelations(): array
