@@ -8,7 +8,9 @@ class Tag extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
     ];
+
 
     public function articles()
     {
