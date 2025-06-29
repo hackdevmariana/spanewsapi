@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tag;
+use App\Models\Topic;
 
-class TagController extends Controller
+class TopicController extends Controller
 {
     public function index()
     {
         return response()->json([
-            'data' => Tag::select('name', 'slug')->get(),
+            'data' => Topic::select('name', 'slug')->get(),
         ]);
     }
 }
