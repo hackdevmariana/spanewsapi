@@ -2,6 +2,12 @@
 
 namespace Database\Seeders;
 
+/* Usage (for another provinces):
+    php artisan make:seeder ZaragozaMunicipalitiesSeeder 
+
+    php artisan db:seed --class=Database\\Seeders\\ZaragozaMunicipalitiesSeeder
+*/
+
 use App\Models\Municipality;
 use App\Models\Province;
 use Illuminate\Database\Seeder;

@@ -38,7 +38,19 @@ class SourceSeeder extends Seeder
                 'province_id'        => Province::where('slug', 'sevilla')->value('id'),
                 'community_id'       => AutonomousCommunity::where('slug', 'andalucia')->value('id'),
             ],
-            // … más medios progresivamente
+            [
+                'name'               => 'El correo de Andalucía',
+                'slug'               => 'el-correo-de-andalucia',
+                'url'                => 'https://www.elcorreoweb.es/',
+                'rss_url'            => '',
+                'editorial_email'    => 'redaccion@correoandalucia.es',
+                'commercial_email'   => 'publicidad@correoandalucia.es',
+                'type'               => 'digital',
+                'geographic_scope'   => 'autonómico',
+                'main_topic'         => 'actualidad',
+                'community_id'       => AutonomousCommunity::where('slug', 'andalucia')->value('id'),
+            ],
+            
         ];
 
         foreach ($items as $data) {

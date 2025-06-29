@@ -44,4 +44,9 @@ class Source extends Model
     {
         return $this->belongsTo(AutonomousCommunity::class, 'community_id');
     }
+    
+    public function rssFeeds()
+    {
+        return $this->hasMany(RssFeed::class);
+    }
 }
